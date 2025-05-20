@@ -40,9 +40,8 @@ Users should be able to:
 
 ### Built with
 
-- Solution URL: [GitHub](https://github.com/TwoZer00/multi-step-form-main)
-- Live Site URL: [Live site](https://keen-malabi-cc1f80.netlify.app)
-
+- [Astro](https://astro.build/)
+- [tailwindcss](https://tailwindcss.com/) - For styles
 ###
 
 
