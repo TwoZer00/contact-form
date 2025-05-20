@@ -33,8 +33,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [Gihub](https://github.com/TwoZer00/contact-form)
+- Live Site URL: [Netlify](https://gorgeous-salmiakki-783199.netlify.app)
 
 ## My process
 
