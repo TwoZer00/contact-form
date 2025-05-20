@@ -1,7 +1,6 @@
 ---
 import type { getEntries } from "astro:content";
 import CustomLabel from "./CustomLabel.astro";
-import { undefined } from "astro:schema";
 
 const { title, name, type, labelSize, error } = Astro.props;
 const id = title.replace(" ", "-");

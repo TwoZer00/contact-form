@@ -6,13 +6,11 @@ import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import { actions } from "astro:actions";
 import { isInputError } from "astro:actions";
-// import CheckIcon from "../icons/Check.astro";
 import Notification from "../components/Notification.astro";
-import { undefined } from "astro:schema";
 
 const result = Astro.getActionResult(actions.sendEmail);
 const inputErrors = isInputError(result?.error) ? result.error.fields : {};
-export const prerender = false;
+// export const prerender = false;
 ---
 
 <html lang="en">
