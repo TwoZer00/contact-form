@@ -1,16 +1,125 @@
 ---
+import CustomInput from "../layout/CustomInput.astro";
+import CustomLabel from "../layout/CustomLabel.astro";
+import CustomRadioInput from "../layout/CustomRadioInput.astro";
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import { actions } from "astro:actions";
+import { isInputError } from "astro:actions";
+// import CheckIcon from "../icons/Check.astro";
+import Notification from "../components/Notification.astro";
+import { undefined } from "astro:schema";
 
+const result = Astro.getActionResult(actions.sendEmail);
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+export const prerender = false;
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Contact form</title>
+    <ClientRouter />
+  </head>
+  <body class="bg-tgreen-200 grid place-content-center h-dvh">
+    <form
+      action={actions.sendEmail}
+      method="post"
+      transition:animate="none"
+      class="bg-white rounded-lg relative flex flex-col w-[300px] px-9 py-10 sm:gap-6 sm:w-[730px] sm:min-h-[775px]"
+    >
+      <h1 class="font-bold text-3xl capitalize text-tgray-900">Contact us</h1>
+      <div class="flex flex-col sm:flex-row gap-4 pt-1">
+        <CustomInput title="first name" name="fname" error={inputErrors} />
+        <CustomInput title="last name" name="lname" error={inputErrors} />
+      </div>
+      <CustomInput
+        title="email address"
+        name="email"
+        type="email"
+        error={inputErrors}
+      />
+      <!-- <RadioGroup /> -->
+      <div>
+        <div class="flex flex-col gap-4 pt-1">
+          <CustomLabel title="query type" />
+          <!-- <label class=`text-[16px]`>Query Type</label> -->
+          <div class="flex flex-col sm:flex-row justify-between gap-4">
+            <CustomRadioInput title="general enquiry" />
+            <CustomRadioInput title="support request" />
+          </div>
+        </div>
+        <p class="text-tred">{inputErrors["queryt"]}</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <CustomLabel title="message" />
+        <!-- <label for="message" class="text-[16px]">Message</label> -->
+        <textarea
+          class="border border-tgray-500 focus-visible:outline-1 focus-visible:outline-tgreen-600 p-4 resize-none rounded h-[18ch] sm:h-[11ch]"
+          name="message"
+          transition:persist
+          id="message"></textarea>
+        <p class="text-tred">{inputErrors["message"]}</p>
+      </div>
+      <div>
+        <div
+          class="flex flex-row pt-4.5 items-center gap-5 hover:cursor-pointer"
+        >
+          <input
+            id="consent"
+            type="checkbox"
+            name="consent"
+            transition:persist
+            class="aspect-square h-4 ml-1.5 accent-tgreen-600"
+          />
+          <CustomLabel
+            clicker
+            title="consent"
+            placeholder="I consent to being contacted by the team"
+          />
+          <!-- <label for="consent"> I consent to being contacted by the team </label> -->
+        </div>
+        <p class="text-tred">{inputErrors["consent"]}</p>
+      </div>
+      <button
+        type="submit"
+        class="bg-tgreen-600 text-white w-full rounded-lg py-4.5 mt-3.5"
+        >Submit</button
+      >
+      <!-- {
+        success && (
+          <p class="text-tgreen-600 font-medium text-center mt-2">
+            Thank you! Your message has been sent successfully.
+          </p>
+        )
+      }
+      {
+        result?.error && (
+          <p class="text-red-500 font-medium text-center mt-2">
+            Error: {result.error.message}
+          </p>
+        )
+      } -->
+      <Notification show={result?.data?.status} />
+    </form>
+    <!-- <script>
+      import { actions } from "astro:actions";
+      import { navigate } from "astro:transitions/client";
+
+      const form = document.querySelector("form");
+
+      form?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+        console.log(formData);
+        const { error } = await actions.sendEmail(formData);
+        console.log(error);
+
+        // if (!error) navigate("/confirmation");
+      });
+    </script> -->
+  </body>
 </html>

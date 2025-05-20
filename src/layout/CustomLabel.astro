@@ -1,0 +1,10 @@
+---
+const { title, placeholder, clicker } = Astro.props;
+const id = title.replace(" ", "-");
+---
+
+<label
+  for={id}
+  class=`text-[16px] text-tgray-900 ${placeholder?"":"capitalize"} after:ml-2 after:text-tgreen-600 after:content-['*'] ${clicker?"cursor-pointer":""}`
+  >{placeholder || title}</label
+>

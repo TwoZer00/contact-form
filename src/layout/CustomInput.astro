@@ -1,0 +1,23 @@
+---
+import type { getEntries } from "astro:content";
+import CustomLabel from "./CustomLabel.astro";
+import { undefined } from "astro:schema";
+
+const { title, name, type, labelSize, error } = Astro.props;
+const id = title.replace(" ", "-");
+// console.log(Object.entries(error[name]));
+---
+
+<div class="flex flex-col w-full gap-2">
+  <CustomLabel title={title} />
+  <input
+    id={id}
+    type={type || "text"}
+    name={name}
+    transition:persist
+    class="border border-tgray-500 rounded py-3 px-5 hover:cursor-pointer focus-visible:outline-tgreen-600 focus-visible:outline-1"
+  />
+  <p class="text-tred fs">
+    {error[name] !== null || error[name] !== undefined ? error[name] : ""}
+  </p>
+</div>

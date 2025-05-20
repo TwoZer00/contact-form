@@ -1,0 +1,16 @@
+---
+import CheckIcon from "../icons/Check.astro";
+const { show } = Astro.props;
+---
+
+<div
+  class=`absolute top-0 ${!show&&"hidden"} transition-all transition-discrete shadow-lg left-1/2 -translate-1/2 rounded-lg bg-tgray-900 p-4 flex flex-col gap-2`
+>
+  <div class="flex flex-row items-center gap-2">
+    <CheckIcon />
+    <h2 class="capitalize text-white">message sent!</h2>
+  </div>
+  <p class="text-tgray-500 whitespace-nowrap">
+    Thanks for completing the form. We'll be in touch soon!
+  </p>
+</div>
